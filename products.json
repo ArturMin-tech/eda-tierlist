@@ -85,7 +85,7 @@
     "price": 4.65,
     "old_price": null,
     "image": "images/our-finest-pad-thai.png",
-    "image_hd": null,
+    "image_hd": "images_hd/our-finest-pad-thai.jpg",
     "source": "order_03.jpg",
     "store": "Instacart"
   },

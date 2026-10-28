@@ -2,6 +2,7 @@
 
   python find_hd.py search [id ...] [--out DIR]   # без id — все товары без image_hd
   python find_hd.py pick <id> <номер> [--out DIR] # сохранить кандидата в images_hd/
+  python find_hd.py url <id> <ссылка>             # сохранить картинку по прямой ссылке
 
 На листе слева вырезка со скриншота, дальше пронумерованные кандидаты с разрешением.
 Сохранять только при 100% совпадении упаковки (дизайн, размер, регион).
@@ -51,7 +52,10 @@ def giant_tiger(query):
 
 def collect_urls(name):
     urls = []
-    for fn, q in [(bing_images, name), (bing_images, f"{name} Canada"), (giant_tiger, name)]:
+    # Заказы из Walmart Canada — запрос с walmart.ca чаще всего даёт точную упаковку.
+    queries = [(bing_images, f"{name} walmart.ca"), (bing_images, name),
+               (bing_images, f"{name} Canada"), (giant_tiger, name)]
+    for fn, q in queries:
         try:
             urls += fn(q)
         except Exception as e:
@@ -125,24 +129,28 @@ def search(pid, products, out):
     print(f"  {len(cands)} candidates -> {d / 'sheet.jpg'}")
 
 
-def pick(pid, n, out):
-    meta = json.loads((out / pid / "candidates.json").read_text(encoding="utf-8"))
-    c = next(m for m in meta if m["n"] == n)
-    img = Image.open(out / pid / c["file"])
+def save_hd(pid, data, url):
+    img = Image.open(io.BytesIO(data))
     for old in (ROOT / "images_hd").glob(f"{pid}.*"):
         old.unlink()
-    if c["file"].endswith((".jpg", ".png")):
-        dst = ROOT / "images_hd" / f"{pid}{Path(c['file']).suffix}"
-        dst.write_bytes((out / pid / c["file"]).read_bytes())
+    if img.format in ("JPEG", "PNG"):
+        dst = ROOT / "images_hd" / f"{pid}.{'jpg' if img.format == 'JPEG' else 'png'}"
+        dst.write_bytes(data)
     else:  # webp/gif и прочее — в png
         dst = ROOT / "images_hd" / f"{pid}.png"
         img.save(dst)
-    print(f"{pid}: saved {dst.name} {img.size} from {c['url']}")
+    print(f"{pid}: saved {dst.name} {img.size} from {url}")
+
+
+def pick(pid, n, out):
+    meta = json.loads((out / pid / "candidates.json").read_text(encoding="utf-8"))
+    c = next(m for m in meta if m["n"] == n)
+    save_hd(pid, (out / pid / c["file"]).read_bytes(), c["url"])
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["search", "pick"])
+    ap.add_argument("cmd", choices=["search", "pick", "url"])
     ap.add_argument("args", nargs="*")
     ap.add_argument("--out", type=Path, default=DEFAULT_OUT)
     a = ap.parse_args()
@@ -151,8 +159,10 @@ def main():
         ids = a.args or [pid for pid, p in products.items() if not p.get("image_hd")]
         for pid in ids:
             search(pid, products, a.out)
-    else:
+    elif a.cmd == "pick":
         pick(a.args[0], int(a.args[1]), a.out)
+    else:
+        save_hd(a.args[0], get(a.args[1]), a.args[1])
 
 
 if __name__ == "__main__":
