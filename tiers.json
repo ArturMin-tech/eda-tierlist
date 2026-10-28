@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T05:47:20.129Z",
+  "updated": "2026-10-28T18:45:15.317Z",
   "tiers": {
     "S": [],
     "A": [
@@ -11,7 +11,9 @@
     "C": [
       "ramune-strawberry"
     ],
-    "D": [],
+    "D": [
+      "crave-pesto-ravioli"
+    ],
     "F": []
   }
 }
