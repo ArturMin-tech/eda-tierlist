@@ -1,13 +1,13 @@
 {
-  "updated": "2026-10-28T05:10:31.480Z",
+  "updated": "2026-10-28T05:10:41.428Z",
   "tiers": {
     "S": [],
     "A": [],
-    "B": [
-      "ramune-strawberry"
-    ],
+    "B": [],
     "C": [],
     "D": [],
-    "F": []
+    "F": [
+      "ramune-strawberry"
+    ]
   }
 }
