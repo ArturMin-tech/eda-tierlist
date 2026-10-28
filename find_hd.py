@@ -92,12 +92,15 @@ def label(img, text, size):
     return tile
 
 
-def search(pid, products, out):
+def search(pid, products, out, queries=None):
     p = products[pid]
     print(f"{pid}: {p['name']}")
     d = out / pid
     d.mkdir(parents=True, exist_ok=True)
-    urls = collect_urls(p["name"])[:40]
+    urls = []
+    for q in queries or [p["name"]]:
+        urls += [u for u in collect_urls(q) if u not in urls]
+    urls = urls[:60]
     with ThreadPoolExecutor(8) as ex:
         results = [r for r in ex.map(download, urls) if r]
     cands, hashes = [], set()
@@ -153,12 +156,14 @@ def main():
     ap.add_argument("cmd", choices=["search", "pick", "url"])
     ap.add_argument("args", nargs="*")
     ap.add_argument("--out", type=Path, default=DEFAULT_OUT)
+    ap.add_argument("--query", action="append",
+                    help="свой поисковый запрос вместо названия (можно несколько), например описание упаковки")
     a = ap.parse_args()
     products = {p["id"]: p for p in json.loads((ROOT / "products.json").read_text(encoding="utf-8"))}
     if a.cmd == "search":
         ids = a.args or [pid for pid, p in products.items() if not p.get("image_hd")]
         for pid in ids:
-            search(pid, products, a.out)
+            search(pid, products, a.out, a.query)
     elif a.cmd == "pick":
         pick(a.args[0], int(a.args[1]), a.out)
     else:

@@ -145,7 +145,7 @@
     "price": 3.18,
     "old_price": null,
     "image": "images/el-monterey-egg-sausage.png",
-    "image_hd": null,
+    "image_hd": "images_hd/el-monterey-egg-sausage.png",
     "source": "order_04.jpg",
     "store": "Instacart"
   },
@@ -165,7 +165,7 @@
     "price": 4.17,
     "old_price": 4.97,
     "image": "images/crave-chili-sesame.png",
-    "image_hd": null,
+    "image_hd": "images_hd/crave-chili-sesame.png",
     "source": "order_04.jpg",
     "store": "Instacart"
   },
