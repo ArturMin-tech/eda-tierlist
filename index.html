@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f1115">
+  <title>Еда — тир-лист</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍜</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>🍜 Еда</h1>
+    <span id="status" class="status"></span>
+    <div class="actions">
+      <button id="saveBtn" class="btn primary">Сохранить</button>
+      <button id="settingsBtn" class="btn icon" aria-label="Настройки">⚙</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="board" class="board"></section>
+
+    <section class="pool-wrap">
+      <h2>Не оценено <span id="poolCount" class="count"></span></h2>
+      <div id="pool" class="items pool" data-tier=""></div>
+      <p class="hint">Перетащи товар в ряд или тапни по нему, чтобы выбрать тир.</p>
+    </section>
+  </main>
+
+  <dialog id="sheet" class="sheet">
+    <form method="dialog">
+      <img id="sheetImg" alt="">
+      <h3 id="sheetName"></h3>
+      <p id="sheetPrice" class="price"></p>
+      <div id="sheetTiers" class="tier-buttons"></div>
+      <button class="btn ghost wide" value="cancel">Закрыть</button>
+    </form>
+  </dialog>
+
+  <dialog id="settings" class="sheet">
+    <form id="settingsForm" method="dialog">
+      <h3>Сохранение в GitHub</h3>
+      <p class="muted">
+        Оценки сохраняются коммитом файла <code>tiers.json</code> в репозиторий.
+        Для этого нужен токен — создай
+        <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">fine-grained token</a>
+        с доступом только к этому репозиторию и правом <b>Contents: Read and write</b>.
+        Токен хранится только в этом браузере.
+      </p>
+      <label>Репозиторий (owner/repo)
+        <input id="repoInput" placeholder="username/eda-tierlist" autocomplete="off">
+      </label>
+      <label>Токен
+        <input id="tokenInput" type="password" placeholder="github_pat_…" autocomplete="off">
+      </label>
+      <div class="row">
+        <button class="btn ghost" value="cancel">Отмена</button>
+        <button id="settingsSave" class="btn primary" value="ok">Готово</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
