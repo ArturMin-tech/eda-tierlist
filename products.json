@@ -225,7 +225,7 @@
     "price": 4.97,
     "old_price": null,
     "image": "images/swanson-sweet-sour-chicken.png",
-    "image_hd": null,
+    "image_hd": "images_hd/swanson-sweet-sour-chicken.jpg",
     "source": "order_06.jpg",
     "store": "Instacart"
   },
@@ -235,7 +235,7 @@
     "price": 4.17,
     "old_price": 4.97,
     "image": "images/crave-pulled-chicken.png",
-    "image_hd": null,
+    "image_hd": "images_hd/crave-pulled-chicken.jpg",
     "source": "order_06.jpg",
     "store": "Instacart"
   },
@@ -265,7 +265,7 @@
     "price": 3.19,
     "old_price": 5.27,
     "image": "images/mccain-pockets-three-cheese.png",
-    "image_hd": null,
+    "image_hd": "images_hd/mccain-pockets-three-cheese.jpg",
     "source": "order_06.jpg",
     "store": "Instacart"
   },

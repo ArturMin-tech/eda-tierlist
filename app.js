@@ -82,6 +82,7 @@ function setStatus(text, cls = "") {
   const el = $("status");
   el.textContent = text;
   el.className = `status ${cls}`;
+  $("saveBtn").classList.toggle("dirty", cls === "dirty");
 }
 
 function markDirty() {
@@ -261,6 +262,11 @@ $("settings").addEventListener("close", () => {
   t ? store.set(LS.token, t) : store.del(LS.token);
   toast("Настройки сохранены");
 });
+
+// Тап по затемнённому фону вокруг окна тоже закрывает его.
+for (const d of [$("sheet"), $("settings")]) {
+  d.addEventListener("click", (e) => e.target === d && d.close());
+}
 
 $("saveBtn").addEventListener("click", save);
 $("settingsBtn").addEventListener("click", openSettings);
