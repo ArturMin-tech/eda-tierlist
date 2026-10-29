@@ -1,12 +1,14 @@
 {
-  "updated": "2026-10-28T18:45:15.317Z",
+  "updated": "2026-10-29T03:57:37.910Z",
   "tiers": {
     "S": [],
     "A": [
-      "pocky-green-tea"
+      "pocky-green-tea",
+      "crave-carne-asada"
     ],
     "B": [
-      "cheery-chews-unicorn"
+      "cheery-chews-unicorn",
+      "el-monterey-egg-sausage"
     ],
     "C": [
       "ramune-strawberry"
