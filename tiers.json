@@ -1,15 +1,18 @@
 {
-  "updated": "2026-10-29T18:38:01.860Z",
+  "updated": "2026-10-30T01:58:24.400Z",
   "tiers": {
     "S": [],
     "A": [
       "pocky-green-tea",
       "crave-carne-asada",
-      "crave-korean-bbq-bolognese"
+      "crave-korean-bbq-bolognese",
+      "nerds-gummy-clusters",
+      "nongshim-shrimp-chips"
     ],
     "B": [
       "cheery-chews-unicorn",
-      "el-monterey-egg-sausage"
+      "el-monterey-egg-sausage",
+      "el-monterey-red-hot-beef"
     ],
     "C": [
       "ramune-strawberry"
